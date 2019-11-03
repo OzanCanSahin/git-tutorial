@@ -3,23 +3,47 @@
 
 void main()
 {
-	char cont;
+	char cont = 'y'; //continue entering numbers
+	printf("Hello ESPL \n");
+
+	//to clean input buffer in case of invalid inputs
+	int c; 
+	int InputInteger;
 
 	do
 	{
-		printf("Hello ESPL \n");
 
 		unsigned int UserNumber;
 		char* funcResult; 
+		char term;
 
-		printf("Enter a number: \n");
-		scanf("%d", &UserNumber);
-		funcResult = num_to_words(UserNumber);
-		printf("%c \n", &funcResult);
+		printf("Please enter a number: \n");
+		InputInteger = scanf("%d", &UserNumber);
 
-		printf("Do you want to enter another number?(y/n) \n");
-		scanf("%c", &cont);
+		if(InputInteger == 1)
+		{
+			funcResult = num_to_words(UserNumber);
+			printf("%s \n", funcResult);
 
-	} while (cont == 'y');
+			printf("Do you want to enter another number?(y/n) \n");
+			scanf(" %c", &cont);
+	        printf("\n");
+
+	        if(cont != 'y' && cont != 'Y' && cont != 'n' && cont != 'N')
+	        {
+	        	do
+	        	{
+	        		printf("You entered an invalid answer. Do you want to enter another number?(y/n) \n");
+	        		scanf(" %c", &cont);
+	        		printf("\n");
+	        	} while(cont != 'y' && cont != 'Y' && cont != 'n' && cont != 'N');
+	        }
+		} else 
+		{
+			printf("You entered an invalid value instead of a number. Please enter a number: \n");
+			while((c = getchar()) != '\n' && c != EOF);
+		}
+		
+	} while (cont == 'y' || cont == 'Y');	
 	
 }
